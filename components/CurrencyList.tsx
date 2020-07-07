@@ -1,27 +1,23 @@
-import React, {useMemo} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {Alert, FlatList, StyleSheet, View} from 'react-native';
 import {Currency} from '../api/resource';
-import CurrencyRow from './CurrencyRow';
 import Balance from './Balance';
+import CurrencyRow from './CurrencyRow';
 
 function Separator() {
   return <View style={styles.separator} />;
 }
 
-export default function CurrencyList({currencies}: {currencies: Currency[]}) {
-  const value = 1000;
+type Props = {currencies: Currency[]};
 
-  const ListHeaderComponent = useMemo(() => {
-    return () => <Balance value={value} />;
-  }, [value]);
-
+export default function CurrencyList({currencies}: Props) {
   return (
     <FlatList
       style={styles.container}
       contentInsetAdjustmentBehavior="automatic"
       data={currencies}
       keyExtractor={(item: Currency) => item.id}
-      ListHeaderComponent={ListHeaderComponent}
+      ListHeaderComponent={<Balance value={1000} />}
       ItemSeparatorComponent={Separator}
       ListFooterComponent={Separator}
       renderItem={({item: currency}: {item: Currency}) => (
@@ -31,6 +27,9 @@ export default function CurrencyList({currencies}: {currencies: Currency[]}) {
           symbol={currency.symbol}
           usd={currency.usd}
           icon={currency.icon}
+          onPress={() => {
+            Alert.alert(currency.name);
+          }}
         />
       )}
     />

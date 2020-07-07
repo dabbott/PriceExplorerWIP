@@ -1,5 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import Spacer from './Spacer';
 
 type Props = {
@@ -7,11 +14,18 @@ type Props = {
   icon: string;
   symbol: string;
   usd: number;
+  onPress: () => void;
 };
 
-export default function CurrencyRow({name, icon, symbol, usd}: Props) {
+const formatter = Intl.NumberFormat(undefined, {maximumFractionDigits: 2});
+
+export function formatUsd(usd: number): string {
+  return '$' + formatter.format(usd);
+}
+
+export default function CurrencyRow({name, icon, symbol, usd, onPress}: Props) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={{uri: icon}} style={styles.image} />
       <Spacer width={16} />
       <View style={styles.leftColumn}>
@@ -23,11 +37,11 @@ export default function CurrencyRow({name, icon, symbol, usd}: Props) {
       </View>
       <Spacer />
       <View style={styles.rightColumn}>
-        <Text style={styles.title}>{usd.toFixed(2).toString()}</Text>
+        <Text style={styles.title}>{formatUsd(usd)}</Text>
         <Spacer height={2} />
         <Text style={styles.price}>+0.80%</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -52,7 +66,10 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.5)',
   },
   price: {
-    fontSize: 18,
+    fontSize: Platform.select({
+      ios: 16,
+      android: 20,
+    }),
     color: 'mediumseagreen',
     fontWeight: '300',
   },

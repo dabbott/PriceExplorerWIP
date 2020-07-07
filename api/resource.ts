@@ -16,6 +16,10 @@ export function currencies(): Currency[] {
   return data;
 }
 
+export function getCurrency(id: string): Currency | undefined {
+  return currencies().find((currency) => currency.id === id);
+}
+
 const data: Currency[] = [
   {
     id: 'NzcucMqj2',

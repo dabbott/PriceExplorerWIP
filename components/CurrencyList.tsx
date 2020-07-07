@@ -8,9 +8,9 @@ function Separator() {
   return <View style={styles.separator} />;
 }
 
-type Props = {currencies: Currency[]};
+type Props = {currencies: Currency[]; onPressRow: (id: string) => void};
 
-export default function CurrencyList({currencies}: Props) {
+export default function CurrencyList({currencies, onPressRow}: Props) {
   return (
     <FlatList
       style={styles.container}
@@ -28,7 +28,7 @@ export default function CurrencyList({currencies}: Props) {
           usd={currency.usd}
           icon={currency.icon}
           onPress={() => {
-            Alert.alert(currency.name);
+            onPressRow(currency.id);
           }}
         />
       )}
@@ -39,6 +39,7 @@ export default function CurrencyList({currencies}: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 28,

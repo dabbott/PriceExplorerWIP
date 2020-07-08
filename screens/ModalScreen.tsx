@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import Button from '../components/Button';
 import {MainParamList} from './types';
 import {useNavigation} from '@react-navigation/native';
+import Modal from '../components/Modal';
 
 type ModalScreenProps = StackScreenProps<MainParamList, 'Modal'>;
 
@@ -17,24 +18,21 @@ const ModalScreen = ({
   >();
 
   return (
-    <View
-      style={{
-        padding: 40,
-        backgroundColor: 'white',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
+    <Modal
+      onDismiss={() => {
+        navigation.goBack();
       }}>
-      <Button
-        title="Buy"
-        onPress={() => {
-          navigation.push('Buy', {id});
-        }}
-      />
-      <View style={{height: 20}} />
-      <Button title="Sell" onPress={() => {}} />
-    </View>
+      <View style={{padding: 40}}>
+        <Button
+          title="Buy"
+          onPress={() => {
+            navigation.push('Buy', {id});
+          }}
+        />
+        <View style={{height: 20}} />
+        <Button title="Sell" onPress={() => {}} />
+      </View>
+    </Modal>
   );
 };
 

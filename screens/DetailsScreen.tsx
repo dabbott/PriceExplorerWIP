@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {getCurrency} from '../api/resource';
+import {getCurrency, getHistory} from '../api/resource';
 import Balance from '../components/Balance';
 import Button from '../components/Button';
 import CurrencyRow from '../components/CurrencyRow';
@@ -36,6 +36,7 @@ export default function DetailsScreen({
   >();
 
   const currency = getCurrency(id);
+  const history = getHistory(id);
 
   if (!currency) return null;
 
@@ -43,11 +44,22 @@ export default function DetailsScreen({
     CHART_OPTIONS[CHART_OPTIONS.length - 1].days,
   );
 
+  const points = history.slice(-days).map((price) => price.usd);
+  const min = Math.min(...points);
+  const max = Math.max(...points);
+
   return (
     <ScrollView style={styles.container}>
       <Balance label={currency.name} value={currency.usd} />
       <Spacer height={16} />
-      <View style={styles.chart} />
+      {/* <Chart
+        style={styles.chart}
+        minimumValue={min}
+        maximumValue={max}
+        data={points}
+        strokeWidth={1}
+        strokeColor="#0055e8"
+      /> */}
       <View style={styles.chartButtonContainer}>
         {CHART_OPTIONS.map((option: ChartOption) => (
           <TouchableOpacity

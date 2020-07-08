@@ -19,6 +19,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* PriceExplorerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PriceExplorerTests.m */; };
 		5DA3600845BC359AAD2FCF02 /* libPods-PriceExplorer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FF721A792D2C82B17770B4 /* libPods-PriceExplorer.a */; };
 		667780384C14282963AAE9AC /* libPods-PriceExplorer-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D0AB4F98320B384F30A8011 /* libPods-PriceExplorer-tvOS.a */; };
+		6B45CA7424B66F16008E4187 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B45CA7324B66F16008E4187 /* ChartView.swift */; };
 		DFFB6DB6F95E3B675D7271BE /* libPods-PriceExplorer-PriceExplorerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01488E6C952C2580CBF0A16B /* libPods-PriceExplorer-PriceExplorerTests.a */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,8 @@
 		4B40CB2ACA7F957A10D35B07 /* libPods-PriceExplorer-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceExplorer-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		640AD95B26FCDDB9E6ABEACC /* Pods-PriceExplorer-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceExplorer-tvOS.release.xcconfig"; path = "Target Support Files/Pods-PriceExplorer-tvOS/Pods-PriceExplorer-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		66C689FE9AEAFAE7C466DE68 /* Pods-PriceExplorer-PriceExplorerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceExplorer-PriceExplorerTests.release.xcconfig"; path = "Target Support Files/Pods-PriceExplorer-PriceExplorerTests/Pods-PriceExplorer-PriceExplorerTests.release.xcconfig"; sourceTree = "<group>"; };
+		6B45CA7224B66F16008E4187 /* PriceExplorer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PriceExplorer-Bridging-Header.h"; sourceTree = "<group>"; };
+		6B45CA7324B66F16008E4187 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChartView.swift; path = PriceExplorer/ChartView.swift; sourceTree = "<group>"; };
 		73FF721A792D2C82B17770B4 /* libPods-PriceExplorer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceExplorer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0AB4F98320B384F30A8011 /* libPods-PriceExplorer-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceExplorer-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		914C3CB6A344C5CBD98AE0D1 /* Pods-PriceExplorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceExplorer.release.xcconfig"; path = "Target Support Files/Pods-PriceExplorer/Pods-PriceExplorer.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				6B45CA7324B66F16008E4187 /* ChartView.swift */,
+				6B45CA7224B66F16008E4187 /* PriceExplorer-Bridging-Header.h */,
 			);
 			name = PriceExplorer;
 			sourceTree = "<group>";
@@ -194,7 +199,6 @@
 				A94CCDC0C9A7A64D82D2F8E6 /* Pods-PriceExplorer-tvOSTests.debug.xcconfig */,
 				C929889E27B950473C929C50 /* Pods-PriceExplorer-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -292,7 +296,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1140;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -532,6 +536,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				6B45CA7424B66F16008E4187 /* ChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +589,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E2A30AF32E2C4D28A9E7064 /* Pods-PriceExplorer-PriceExplorerTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -607,6 +613,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 66C689FE9AEAFAE7C466DE68 /* Pods-PriceExplorer-PriceExplorerTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = PriceExplorerTests/Info.plist;
@@ -644,6 +651,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PriceExplorer;
+				SWIFT_OBJC_BRIDGING_HEADER = "PriceExplorer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -666,6 +674,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PriceExplorer;
+				SWIFT_OBJC_BRIDGING_HEADER = "PriceExplorer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

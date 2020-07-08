@@ -1,4 +1,4 @@
-import {StackScreenProps} from '@react-navigation/stack';
+import {StackScreenProps, StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {
   ScrollView,
@@ -13,7 +13,8 @@ import Button from '../components/Button';
 import CurrencyRow from '../components/CurrencyRow';
 import Separator from '../components/Separator';
 import Spacer from '../components/Spacer';
-import {RootParamList} from './types';
+import {RootParamList, MainParamList} from './types';
+import {useNavigation} from '@react-navigation/native';
 
 type DetailsScreenProps = StackScreenProps<RootParamList, 'Details'>;
 
@@ -30,6 +31,10 @@ export default function DetailsScreen({
     params: {id},
   },
 }: DetailsScreenProps) {
+  const navigation = useNavigation<
+    StackNavigationProp<MainParamList, 'Root'>
+  >();
+
   const currency = getCurrency(id);
 
   if (!currency) return null;
@@ -71,7 +76,12 @@ export default function DetailsScreen({
         usd={currency.usd}
       />
       <View style={styles.button}>
-        <Button title={'Trade'} onPress={() => {}} />
+        <Button
+          title={'Trade'}
+          onPress={() => {
+            navigation.push('Modal');
+          }}
+        />
       </View>
       <Separator />
     </ScrollView>

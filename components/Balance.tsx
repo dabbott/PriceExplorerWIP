@@ -2,14 +2,15 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 type Props = {
+  label: string;
   value: number;
 };
 
-export default function Balance({value}: Props) {
+export default function Balance({label, value}: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Portfolio Balance</Text>
-      <Text style={styles.title}>${value.toString()}</Text>
+      <Text style={styles.label}>{label}</Text>
+      <Text style={styles.title}>${value.toFixed(2).toString()}</Text>
     </View>
   );
 }

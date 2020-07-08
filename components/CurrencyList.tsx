@@ -17,7 +17,7 @@ export default function CurrencyList({currencies, onPressRow}: Props) {
       contentInsetAdjustmentBehavior="automatic"
       data={currencies}
       keyExtractor={(item: Currency) => item.id}
-      ListHeaderComponent={<Balance value={1000} />}
+      ListHeaderComponent={<Balance label="Portfolio Balance" value={1000} />}
       ItemSeparatorComponent={Separator}
       ListFooterComponent={Separator}
       renderItem={({item: currency}: {item: Currency}) => (

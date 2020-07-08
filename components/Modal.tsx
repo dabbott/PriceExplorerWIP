@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {PanGestureHandler, State} from 'react-native-gesture-handler';
 
 const windowHeight = () => Dimensions.get('window').height;
 
@@ -18,6 +19,20 @@ export default function Modal({
   onDismiss: () => void;
 }) {
   const position = useRef(new Animated.Value(windowHeight()));
+  const panY = useRef(new Animated.Value(0));
+
+  const event = useRef(
+    Animated.event(
+      [
+        {
+          nativeEvent: {
+            translationY: panY.current,
+          },
+        },
+      ],
+      {useNativeDriver: true},
+    ),
+  );
 
   useEffect(() => {
     Animated.spring(position.current, {
@@ -26,32 +41,55 @@ export default function Modal({
     }).start();
   }, []);
 
-  return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Animated.timing(position.current, {
-          toValue: windowHeight(),
-          useNativeDriver: true,
-          easing: Easing.out(Easing.cubic),
-        }).start();
+  function handleDismiss() {
+    Animated.timing(position.current, {
+      toValue: windowHeight(),
+      useNativeDriver: true,
+      easing: Easing.out(Easing.cubic),
+    }).start();
 
-        onDismiss();
-      }}>
+    onDismiss();
+  }
+
+  return (
+    <TouchableWithoutFeedback onPress={handleDismiss}>
       <View style={StyleSheet.absoluteFill}>
-        <Animated.View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: 'white',
-              transform: [
-                {
-                  translateY: position.current,
-                },
-              ],
-            },
-          ]}>
-          {children}
-        </Animated.View>
+        <PanGestureHandler
+          onGestureEvent={event.current}
+          onHandlerStateChange={(event) => {
+            if (event.nativeEvent.oldState === State.ACTIVE) {
+              if (event.nativeEvent.translationY > windowHeight() / 4) {
+                handleDismiss();
+              } else {
+                Animated.spring(panY.current, {
+                  toValue: 0,
+                  useNativeDriver: true,
+                }).start();
+              }
+            }
+          }}>
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                backgroundColor: 'white',
+                transform: [
+                  {
+                    translateY: Animated.add(
+                      position.current,
+                      panY.current,
+                    ).interpolate({
+                      inputRange: [100, windowHeight()],
+                      outputRange: [100, windowHeight()],
+                      extrapolate: 'clamp',
+                    }),
+                  },
+                ],
+              },
+            ]}>
+            {children}
+          </Animated.View>
+        </PanGestureHandler>
       </View>
     </TouchableWithoutFeedback>
   );

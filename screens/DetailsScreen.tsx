@@ -15,6 +15,7 @@ import Separator from '../components/Separator';
 import Spacer from '../components/Spacer';
 import {RootParamList, MainParamList} from './types';
 import {useNavigation} from '@react-navigation/native';
+import Chart from '../components/Chart';
 
 type DetailsScreenProps = StackScreenProps<RootParamList, 'Details'>;
 
@@ -52,14 +53,14 @@ export default function DetailsScreen({
     <ScrollView style={styles.container}>
       <Balance label={currency.name} value={currency.usd} />
       <Spacer height={16} />
-      {/* <Chart
+      <Chart
         style={styles.chart}
         minimumValue={min}
         maximumValue={max}
         data={points}
         strokeWidth={1}
         strokeColor="#0055e8"
-      /> */}
+      />
       <View style={styles.chartButtonContainer}>
         {CHART_OPTIONS.map((option: ChartOption) => (
           <TouchableOpacity

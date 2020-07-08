@@ -79,7 +79,7 @@ export default function DetailsScreen({
         <Button
           title={'Trade'}
           onPress={() => {
-            navigation.push('Modal');
+            navigation.push('Modal', {id: currency.id});
           }}
         />
       </View>

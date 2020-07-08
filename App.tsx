@@ -1,11 +1,12 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import DetailsScreen from './screens/DetailsScreen';
+import ModalScreen from './screens/ModalScreen';
 import PortfolioScreen from './screens/PortfolioScreen';
-import {RootParamList, MainParamList} from './screens/types';
-import Button from './components/Button';
+import {MainParamList, RootParamList} from './screens/types';
+import BuyScreen from './screens/BuyScreen';
 
 const Root = createStackNavigator<RootParamList>();
 
@@ -24,14 +25,6 @@ const RootScreen = () => (
   </Root.Navigator>
 );
 
-const ModalScreen = () => (
-  <View style={{padding: 40}}>
-    <Button title="Buy" onPress={() => {}} />
-    <View style={{height: 20}} />
-    <Button title="Sell" onPress={() => {}} />
-  </View>
-);
-
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -41,7 +34,27 @@ const App = () => {
             headerShown: false,
           }}>
           <Main.Screen name="Root" component={RootScreen} />
-          <Main.Screen name="Modal" component={ModalScreen} />
+          <Main.Screen
+            name="Modal"
+            component={ModalScreen}
+            options={{
+              cardStyle: {
+                backgroundColor: 'transparent',
+              },
+              cardOverlayEnabled: true,
+              gestureDirection: 'vertical',
+              cardStyleInterpolator: ({current}) => ({
+                overlayStyle: {
+                  backgroundColor: 'black',
+                  opacity: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 0.2],
+                  }),
+                },
+              }),
+            }}
+          />
+          <Main.Screen name="Buy" component={BuyScreen} />
         </Main.Navigator>
       </NavigationContainer>
     </SafeAreaView>

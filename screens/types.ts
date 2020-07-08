@@ -5,5 +5,6 @@ export type RootParamList = {
 
 export type MainParamList = {
   Root: undefined;
-  Modal: undefined;
+  Modal: {id: string};
+  Buy: {id: string};
 };
